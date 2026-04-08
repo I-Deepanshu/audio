@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Lottie from "lottie-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { 
   Mic, 
   ShieldCheck, 
@@ -20,12 +20,12 @@ import {
 import robotAnimation from "../../public/robot-bot.json";
 
 // --- ANIMATION VARIANTS ---
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -33,7 +33,7 @@ const staggerContainer = {
   }
 };
 
-const floatingVariant = {
+const floatingVariant: Variants = {
   animate: {
     y: [-5, 5, -5],
     transition: {
@@ -44,7 +44,7 @@ const floatingVariant = {
   }
 };
 
-const pulseGlowVariant = {
+const pulseGlowVariant: Variants = {
   animate: {
     boxShadow: [
       "0px 0px 0px 0px rgba(139, 92, 246, 0.4)",
