@@ -7,9 +7,17 @@ export default function AudioRecorderPage() {
   const [userName, setUserName] = useState<string>("");
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [uploadStatus, setUploadStatus] = useState<string>("");
+  const [recordingSeconds, setRecordingSeconds] = useState<number>(0);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const formatTime = (totalSeconds: number) => {
+    const min = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+    const sec = (totalSeconds % 60).toString().padStart(2, "0");
+    return `${min}:${sec}`;
+  };
 
   // Handlers for Step 1
   const acceptTerms = () => setStep(2);
@@ -41,6 +49,11 @@ export default function AudioRecorderPage() {
       mediaRecorder.start();
       setIsRecording(true);
       setUploadStatus("");
+      setRecordingSeconds(0);
+      if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+      timerIntervalRef.current = setInterval(() => {
+        setRecordingSeconds((prev) => prev + 1);
+      }, 1000);
     } catch (err) {
       console.error("Error accessing microphone:", err);
       alert("Microphone access is required to record audio.");
@@ -48,6 +61,10 @@ export default function AudioRecorderPage() {
   };
 
   const stopRecording = () => {
+    if (timerIntervalRef.current) {
+      clearInterval(timerIntervalRef.current);
+      timerIntervalRef.current = null;
+    }
     if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
@@ -182,10 +199,15 @@ export default function AudioRecorderPage() {
                 </button>
               )}
               
-              <div className="h-6">
+              <div className="h-14 flex flex-col items-center">
                  <p className={`font-medium tracking-wide ${isRecording ? 'text-red-400 animate-pulse' : 'text-slate-400'}`}>
                     {isRecording ? "🔴 Recording in progress..." : "Tap to record"}
                  </p>
+                 {isRecording && (
+                   <p className="text-2xl mt-1 font-mono text-white tracking-widest tabular-nums font-bold">
+                     {formatTime(recordingSeconds)}
+                   </p>
+                 )}
               </div>
             </div>
 
