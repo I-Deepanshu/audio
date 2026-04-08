@@ -89,7 +89,7 @@ export default function AudioRecorderPage() {
         body: formData, // the browser automatically sets the correct multipart boundary
       });
 
-      if (!response.ok) {
+      if (response.ok) {
         setUploadStatus("Upload Successful! 🎉");
       } else {
         const errorData = await response.json();
