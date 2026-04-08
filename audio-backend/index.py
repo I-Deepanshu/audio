@@ -21,13 +21,13 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 
 app = FastAPI()
 
-# 1. 🔐 Security Fix: Strict CORS instead of wildcard
-FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:3000") # Default to local next.js on port 3000
+# 1. 🔐 Security Fix: Adaptive CORS
+FRONTEND_URL = os.environ.get("FRONTEND_URL", "*") 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL, "http://127.0.0.1:3000", "http://localhost:3000"],
-    allow_credentials=True,
-    allow_methods=["POST", "OPTIONS"],
+    allow_origins=["*"],  # Allows Next.js to hit the API without strict Vercel sub-domain locks
+    allow_credentials=False, # Must be false to support wildcard origins
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
