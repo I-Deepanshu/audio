@@ -138,12 +138,13 @@ async def upload_audio(file: UploadFile = File(...), name: str = Form(...)):
             logging.info(f"SUCCESS: {clean_name} uploaded file '{filename}' at {timestamp} to Google Drive.")
         else:
             # Fallback local saving if Drive isn't configured (great for local testing)
-            local_save_dir = "uploads"
+            # Vercel functions are read-only, so we must use /tmp if deployed.
+            local_save_dir = "/tmp/uploads" if os.environ.get("VERCEL") else "uploads"
             os.makedirs(local_save_dir, exist_ok=True)
             local_path = os.path.join(local_save_dir, filename)
             with open(local_path, "wb") as f:
                 f.write(await file.read())
-            logging.info(f"MOCK SUCCESS: Drive not configured. Saved '{filename}' locally.")
+            logging.info(f"MOCK SUCCESS: Drive not configured. Saved '{filename}' locally to {local_save_dir}.")
         
         return {"status": "success", "filename": filename, "message": "Uploaded successfully"}
     except Exception as e:
