@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Lottie from "lottie-react";
+import robotAnimation from "../../public/robot-bot.json";
 
 export default function AudioRecorderPage() {
   const [step, setStep] = useState<number>(1);
@@ -103,10 +105,13 @@ export default function AudioRecorderPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-6 selection:bg-blue-500/30">
-      <main className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl p-8 md:p-12">
-        <div className="text-center mb-8">
-          <div className="inline-block p-3 bg-blue-500/10 rounded-2xl mb-4">
-            <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+      <main className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl p-8 md:p-12 relative overflow-hidden">
+        {/* Subtle background glow behind the robot */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-blue-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+        
+        <div className="text-center mb-8 relative z-10 flex flex-col items-center">
+          <div className="w-56 h-56 -mt-6 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+            <Lottie animationData={robotAnimation} loop={true} />
           </div>
           <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
             Voice Data Collection
