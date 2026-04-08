@@ -1,0 +1,19 @@
+# Environments
+.env
+.env.*
+
+# Google OAuth Credentials
+credentials.json
+token.json
+token.pickle
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+
+# Uploads fallback
+uploads/
