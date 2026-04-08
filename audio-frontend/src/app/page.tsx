@@ -65,14 +65,14 @@ export default function AudioRecorderPage() {
     formData.append("name", userName);
 
     try {
-      // In production (Vercel), ensure NEXT_PUBLIC_BACKEND_URL points to the Render/Railway API.
-      const backendUrl = (process as any).env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8000";
-      const response = await fetch(`${backendUrl}/api/upload`, {
+      // In production (Vercel), we hit the Next.js internal rewriting proxy.
+      // This permanently bypasses the browser's CORS locks because the request becomes Same-Origin!
+      const response = await fetch(`/api/proxy/upload`, {
         method: "POST",
         body: formData, // the browser automatically sets the correct multipart boundary
       });
 
-      if (response.ok) {
+      if (!response.ok) {
         setUploadStatus("Upload Successful! 🎉");
       } else {
         const errorData = await response.json();
