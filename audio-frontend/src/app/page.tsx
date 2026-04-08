@@ -3,13 +3,13 @@
 import { useState, useRef, useEffect } from "react";
 import Lottie from "lottie-react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { 
-  Mic, 
-  ShieldCheck, 
-  Globe2, 
-  Database, 
-  CheckCircle2, 
-  FileAudio, 
+import {
+  Mic,
+  ShieldCheck,
+  Globe2,
+  Database,
+  CheckCircle2,
+  FileAudio,
   ArrowRight,
   Info,
   Clock,
@@ -61,14 +61,14 @@ export default function AudioRecorderPage() {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [uploadStatus, setUploadStatus] = useState<string>("");
   const [recordingSeconds, setRecordingSeconds] = useState<number>(0);
-  
+
   // --- UX STATE (Highlighting Recorder) ---
   const [isRecorderHighlighted, setIsRecorderHighlighted] = useState<boolean>(false);
 
   // --- REFS ---
   const recorderSectionRef = useRef<HTMLDivElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
-  
+
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -84,7 +84,7 @@ export default function AudioRecorderPage() {
   const scrollToRecorder = () => {
     // Scroll Into View
     recorderSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    
+
     // Add glowing highlight effect for 2 seconds
     setIsRecorderHighlighted(true);
     setTimeout(() => setIsRecorderHighlighted(false), 2000);
@@ -164,7 +164,7 @@ export default function AudioRecorderPage() {
 
   return (
     <div className="min-h-screen bg-[#06080F] text-slate-100 font-sans overflow-x-hidden selection:bg-purple-500/30">
-      
+
       {/* GLOBAL BACKGROUND EFFECTS */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-900/20 blur-[150px] rounded-full mix-blend-screen"></div>
@@ -186,9 +186,9 @@ export default function AudioRecorderPage() {
 
       {/* --- CONTENT CONTAINER --- */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-12 flex flex-col gap-24">
-        
+
         {/* --- 1. HERO SECTION --- */}
-        <motion.section 
+        <motion.section
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
@@ -218,7 +218,7 @@ export default function AudioRecorderPage() {
              </motion.div>
           </motion.div>
 
-          <motion.button 
+          <motion.button
             variants={fadeUp}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -242,7 +242,7 @@ export default function AudioRecorderPage() {
         >
           <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 blur-[100px] pointer-events-none"></div>
-            
+
             <div className="flex items-center gap-3 mb-8">
               <div className="p-3 bg-purple-500/20 rounded-xl border border-purple-500/30">
                 <Sparkles className="w-6 h-6 text-purple-400" />
@@ -259,7 +259,7 @@ export default function AudioRecorderPage() {
                 { lang: "English", text: "I paid Rahul 500 rupees for dinner at the restaurant." },
                 { lang: "Mixed", text: "Kal maine 200 rupees phone pe transfer kiye the." }
               ].map((item, idx) => (
-                <motion.li 
+                <motion.li
                   key={idx}
                   variants={fadeUp}
                   className="flex items-start md:items-center flex-col md:flex-row gap-3 p-4 bg-slate-800/40 rounded-xl border border-slate-700/30 hover:bg-slate-800/60 transition-colors"
@@ -277,7 +277,7 @@ export default function AudioRecorderPage() {
         {/* --- 3. INSTRUCTIONS & TRUST COMBINED SECTION --- */}
         <section className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto w-full">
           {/* Instructions */}
-          <motion.div 
+          <motion.div
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
             className="flex flex-col gap-6"
           >
@@ -285,7 +285,7 @@ export default function AudioRecorderPage() {
               <Info className="w-6 h-6 text-blue-400" />
               <h3 className="text-xl font-bold">Best Practices</h3>
             </motion.div>
-            
+
             {[
               { icon: FileAudio, title: "Natural Tone", desc: "Speak exactly how you normally would with a friend. No need to act robotic." },
               { icon: Clock, title: "Keep it short", desc: "5 to 10 seconds is the perfect length. We only need brief transaction descriptions." },
@@ -304,7 +304,7 @@ export default function AudioRecorderPage() {
           </motion.div>
 
           {/* Security & Trust */}
-          <motion.div 
+          <motion.div
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
             className="flex flex-col gap-6 bg-slate-900/40 p-8 rounded-[2rem] border border-slate-800/50"
           >
@@ -332,14 +332,14 @@ export default function AudioRecorderPage() {
         </section>
 
         {/* --- 4. STEP FLOW INDICATOR --- */}
-        <motion.section 
+        <motion.section
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
           className="max-w-3xl mx-auto w-full py-8 border-y border-slate-800/60"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4 relative">
             {/* Background dashed line */}
             <div className="hidden md:block absolute top-[50%] left-0 w-full border-t-2 border-dashed border-slate-800 -z-10"></div>
-            
+
             {[
               { step: 1, title: "Read & Prep" },
               { step: 2, title: "Identify Yourself" },
@@ -356,7 +356,7 @@ export default function AudioRecorderPage() {
         </motion.section>
 
         {/* --- 5. RECORDER SECTION (Core App Component) --- */}
-        <motion.section 
+        <motion.section
           ref={recorderSectionRef}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -383,7 +383,7 @@ export default function AudioRecorderPage() {
                 onChange={(e) => setUserName(e.target.value)}
                 autoComplete="off"
                 className="w-full px-5 py-4 rounded-xl bg-slate-950 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all placeholder:text-slate-600 text-lg"
-                placeholder="e.g. Rahul Gupta or Employee ID"
+                placeholder="e.g. AMBANI or Employee ID"
               />
             </div>
 
@@ -394,7 +394,7 @@ export default function AudioRecorderPage() {
             <div className="flex flex-col items-center justify-center space-y-8 min-h-[200px]">
               <AnimatePresence mode="wait">
                 {!userName.trim() ? (
-                  <motion.div 
+                  <motion.div
                     key="waiting"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -405,7 +405,7 @@ export default function AudioRecorderPage() {
                     <p className="text-sm font-medium">Identify yourself above to unlock recording</p>
                   </motion.div>
                 ) : (
-                  <motion.div 
+                  <motion.div
                     key="active"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -431,7 +431,7 @@ export default function AudioRecorderPage() {
                         <Mic className="w-12 h-12 text-white" />
                       </button>
                     )}
-                    
+
                     <div className="h-16 flex flex-col items-center mt-6">
                       <p className={`font-medium tracking-wide ${isRecording ? 'text-red-400 animate-pulse' : 'text-slate-300'}`}>
                         {isRecording ? "🔴 Capturing Audio Phase..." : "Tap the sphere to record"}
@@ -449,7 +449,7 @@ export default function AudioRecorderPage() {
               {/* Status Readout */}
               <AnimatePresence>
                 {uploadStatus && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className={`p-4 w-full text-center rounded-xl text-sm font-medium ${uploadStatus.includes('Successful') ? 'bg-green-500/10 text-green-400 border border-green-500/30' : uploadStatus.includes('Failed') ? 'bg-red-500/10 text-red-400 border border-red-500/30' : 'bg-blue-500/10 text-blue-400 border border-blue-500/30'}`}
@@ -457,7 +457,7 @@ export default function AudioRecorderPage() {
                     {uploadStatus}
                     {uploadStatus.includes('Successful') && (
                       <div className="mt-3">
-                        <button 
+                        <button
                           onClick={() => { setUploadStatus(""); setUserName(""); }}
                           className="px-4 py-2 bg-green-500/20 text-green-300 rounded-lg hover:bg-green-500/30 transition-colors inline-block font-semibold"
                         >
