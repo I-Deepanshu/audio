@@ -242,7 +242,7 @@ export default function AudioRecorderPage() {
         >
           <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 blur-[100px] pointer-events-none"></div>
-            
+
             <div className="flex flex-col mb-8 text-center sm:text-left">
               <h2 className="text-3xl font-bold flex items-center justify-center sm:justify-start gap-3">
                 🎙️ What should I say?
@@ -254,7 +254,7 @@ export default function AudioRecorderPage() {
               <p className="text-slate-300 text-sm font-semibold tracking-wide mb-4 flex items-center gap-2">
                 💡 Examples (for understanding)
               </p>
-              
+
               <motion.ul variants={staggerContainer} className="space-y-3">
                 {[
                   "Aaj maine Trump se 100 rupaye liye.",
@@ -265,7 +265,7 @@ export default function AudioRecorderPage() {
                   "Aaj manne 500 rupaye ka ghee liya.",
                   "Aaj humke 700 rupaye dihaadi mili."
                 ].map((text, idx) => (
-                  <motion.li 
+                  <motion.li
                     key={idx}
                     variants={fadeUp}
                     className="p-3 bg-slate-800/30 rounded-xl hover:bg-slate-800/50 transition-colors border border-transparent hover:border-slate-700/50"
@@ -391,7 +391,7 @@ export default function AudioRecorderPage() {
                 onChange={(e) => setUserName(e.target.value)}
                 autoComplete="off"
                 className="w-full px-5 py-4 rounded-xl bg-slate-950 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all placeholder:text-slate-600 text-lg"
-                placeholder="e.g. AMBANI or Employee ID"
+                placeholder="e.g. AMBANI"
               />
             </div>
 
