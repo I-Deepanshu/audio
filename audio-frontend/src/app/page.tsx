@@ -242,35 +242,43 @@ export default function AudioRecorderPage() {
         >
           <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 blur-[100px] pointer-events-none"></div>
-
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-3 bg-purple-500/20 rounded-xl border border-purple-500/30">
-                <Sparkles className="w-6 h-6 text-purple-400" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold">What should I say?</h2>
-                <p className="text-slate-400 text-sm mt-1">Just describe a payment. Speak completely naturally.</p>
-              </div>
+            
+            <div className="flex flex-col mb-8 text-center sm:text-left">
+              <h2 className="text-3xl font-bold flex items-center justify-center sm:justify-start gap-3">
+                🎙️ What should I say?
+              </h2>
+              <p className="text-slate-400 text-base mt-2">Just describe a payment. Speak naturally in your own style.</p>
             </div>
 
-            <motion.ul variants={staggerContainer} className="space-y-4">
-              {[
-                { lang: "Hindi/Hinglish", text: "Aaj maine Deepanshu se 100 rupaye liye." },
-                { lang: "English", text: "I paid Rahul 500 rupees for dinner at the restaurant." },
-                { lang: "Mixed", text: "Kal maine 200 rupees phone pe transfer kiye the." }
-              ].map((item, idx) => (
-                <motion.li
-                  key={idx}
-                  variants={fadeUp}
-                  className="flex items-start md:items-center flex-col md:flex-row gap-3 p-4 bg-slate-800/40 rounded-xl border border-slate-700/30 hover:bg-slate-800/60 transition-colors"
-                >
-                  <span className="text-xs font-semibold text-cyan-400 uppercase tracking-widest bg-cyan-500/10 px-3 py-1 rounded-full">
-                    {item.lang}
-                  </span>
-                  <span className="text-lg font-medium text-slate-200">“{item.text}”</span>
-                </motion.li>
-              ))}
-            </motion.ul>
+            <div className="bg-slate-950/40 border border-slate-800/60 rounded-2xl p-6">
+              <p className="text-slate-300 text-sm font-semibold tracking-wide mb-4 flex items-center gap-2">
+                💡 Examples (for understanding)
+              </p>
+              
+              <motion.ul variants={staggerContainer} className="space-y-3">
+                {[
+                  "Aaj maine Trump se 100 rupaye liye.",
+                  "Kal maine 200 rupees bank me transfer kiye the.",
+                  "I paid Rahul 500 rupees for dinner at the restaurant.",
+                  "Yesterday, I had a cold coffee for 70 rupees.",
+                  "Aaj mne Modi ko chai ke 20 rupe bheje.",
+                  "Aaj manne 500 rupaye ka ghee liya.",
+                  "Aaj humke 700 rupaye dihaadi mili."
+                ].map((text, idx) => (
+                  <motion.li 
+                    key={idx}
+                    variants={fadeUp}
+                    className="p-3 bg-slate-800/30 rounded-xl hover:bg-slate-800/50 transition-colors border border-transparent hover:border-slate-700/50"
+                  >
+                    <span className="text-lg font-medium text-slate-200">“{text}”</span>
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </div>
+
+            <p className="text-slate-400 text-sm mt-6 text-center sm:text-left leading-relaxed font-medium">
+              🌍 You can speak in any language or accent — Hindi, English, Hinglish, or your local dialect.
+            </p>
           </div>
         </motion.section>
 
