@@ -113,6 +113,10 @@ def get_or_create_user_folder(drive_service, user_folder_name):
     ).execute()
     return folder.get('id')
 
+@app.get("/")
+def health_check():
+    return {"status": "online", "message": "Audio Pipeline API is running securely."}
+
 @app.post("/api/upload")
 async def upload_audio(file: UploadFile = File(...), name: str = Form(...)):
     # 3. 📦 File Size Protection (Reject anything > 5MB)
