@@ -1,19 +1,20 @@
 # 🎙️ Secure Audio Recording & Collection System
 
-An enterprise-grade, browser-based voice data pipeline engineered to collect user audio natively through the web and stream it directly into Google Drive using automated OAuth2 authentication. 
+An enterprise-grade, browser-based voice data pipeline engineered to collect user audio natively through the web and stream it directly into Google Drive. 
 
-Built with a completely decoupled architecture, it leverages **Next.js (React)** for a highly responsive dark-mode frontend and **FastAPI (Python)** for an ultra-fast, streaming backend.
+Built with a completely decoupled architecture, it leverages **Next.js (React)** for a highly responsive frontend and **FastAPI (Python)** for a fast, streaming backend. Both environments are now deployed completely as Serverless functions on Vercel.
 
 ## 🌟 System Architecture
 
 *   **Frontend**: Next.js 15 (Turbopack) + TailwindCSS
-    *   *Features*: Native `MediaRecorder` API handling, `.webm` browser wrapping, interactive Terms and Conditions UI, Glassmorphism aesthetic.
+    *   *Features*: Native `MediaRecorder` API handling, `.webm` browser wrapping, interactive Terms and Conditions UI, Glassmorphism aesthetic powered by Framer Motion.
+    *   *Analytics*: Integrated with **Vercel Analytics** to track visitors, page views, and interactions.
 *   **Backend**: FastAPI + Google Drive API
     *   *Features*: 
-        *   True streaming uploads (avoids RAM bloat on large files).
+        *   Serverless-ready deployment on Vercel (`@vercel/python`).
         *   **Local OAuth2 Flow**: Completely bypasses Google's strict Service Account storage limits by securely acquiring a persistent personal token.
         *   Advanced regex name sanitization and UTC timestamping for robust file identification.
-        *   File-size limiters (5MB max) and strict CORS policies.
+        *   Strict CORS policies.
 
 ---
 
@@ -33,7 +34,7 @@ python -m venv venv
 pip install -r requirements.txt
 
 # Start the Server
-uvicorn main:app --reload --port 8000
+uvicorn index:app --reload --port 8000
 ```
 
 #### Authentication (Google Drive Setup)
@@ -43,7 +44,7 @@ uvicorn main:app --reload --port 8000
    ```env
    MASTER_FOLDER_ID=your_id_here
    ```
-4. On your first boot, it will open a browser to authenticate you exactly once, creating a permanent `token.json`.
+4. On your first boot, it will open a browser to authenticate you exactly once, creating a permanent `token.json` or `token.pickle`.
 
 ### 2. The Frontend (User Interface)
 Open a second terminal in the `audio-frontend` folder:
@@ -53,7 +54,7 @@ cd audio-frontend
 # Install node modules
 npm install
 
-# Start the Turbopack dev server
+# Start the dev server
 npm run dev
 ```
 Open **http://localhost:3000** in your browser.
@@ -62,21 +63,25 @@ Open **http://localhost:3000** in your browser.
 
 ## 🚀 Cloud Deployment
 
-### Backend (Render / Railway)
-The backend requires a solid environment due to ASGI execution. Deploy to a containerized platform like Render.
-*   **Start Command**: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+Both the Frontend and Backend are configured for zero-config serverless deployment on **Vercel**.
+
+### Backend (Vercel Serverless Python)
+The backend is structured to compile as a Serverless API via `vercel.json`. 
+*   **Deploy**: Follow standard Vercel import for the `audio-backend` folder.
 *   **Environment Variables Needed**: 
     *   `MASTER_FOLDER_ID`
-    *   `FRONTEND_URL` (e.g. `https://your-vercel.vercel.app`)
+    *   `FRONTEND_URL` (e.g., `https://your-frontend-app.vercel.app`)
     *   `OAUTH_TOKEN_JSON`: In production, do *not* commit your `token.json` file. Instead, copy the full dictionary text inside your local `token.json` and paste it here!
 
-### Frontend (Vercel)
-Vercel is natively tailored for Next.js.
+### Frontend (Vercel Next.js)
+The frontend imports effortlessly to Vercel as a standard Next.js application.
+*   **Deploy**: Follow standard Vercel import for the `audio-frontend` folder.
 *   **Environment Variables Needed**:
-    *   `NEXT_PUBLIC_BACKEND_URL`: The live URL of your Render backend.
+    *   `NEXT_PUBLIC_BACKEND_URL`: The live URL of your Vercel backend (e.g., `https://your-backend.vercel.app`).
+*   **Analytics**: Vercel Analytics are pre-configured. Ensure it is enabled in your Vercel project dashboard.
 
 ---
 
 ## 🔐 Security & Safety
-*   `.env`, `token.json`, and `credentials.json` are heavily ignored in Git to prevent API key leaks.
-*   FastAPI CORS securely locks incoming payload requests specifically to the designated Next.js host.
+*   `.env`, `token.json`, and `credentials.json` are strictly ignored in `.gitignore` to prevent API key leaks.
+*   FastAPI CORS securely locks incoming payload requests specifically to the designated Next.js frontend host.
