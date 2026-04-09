@@ -18,6 +18,7 @@ import {
 
 // Ensure this file exists in the public directory
 import robotAnimation from "../../public/robot-bot.json";
+import voiceRecognitionAnimation from "../../public/voice-recognition.json";
 
 // --- ANIMATION VARIANTS ---
 const fadeUp: Variants = {
@@ -419,6 +420,11 @@ export default function AudioRecorderPage() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex flex-col items-center w-full"
                   >
+                    {isRecording && (
+                      <div className="w-full max-w-[250px] h-24 mb-6 relative pointer-events-none">
+                        <Lottie animationData={voiceRecognitionAnimation} loop={true} style={{ width: '100%', height: '100%' }} />
+                      </div>
+                    )}
                     {isRecording ? (
                       <div className="relative group">
                         <div className="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-75"></div>
