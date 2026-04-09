@@ -1,6 +1,6 @@
-# 🎙️ Secure Audio Recording & Collection System
+# 🎙️ VocalVault
 
-An enterprise-grade, browser-based voice data pipeline engineered to collect user audio natively through the web and stream it directly into Google Drive. 
+VocalVault is an enterprise-grade, browser-based voice data pipeline engineered to collect user audio natively through the web and stream it directly into Google Drive. 
 
 Built with a completely decoupled architecture, it leverages **Next.js (React)** for a highly responsive frontend and **FastAPI (Python)** for a fast, streaming backend. Both environments are now deployed completely as Serverless functions on Vercel.
 

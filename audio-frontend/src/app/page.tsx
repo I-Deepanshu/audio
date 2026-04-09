@@ -373,7 +373,7 @@ export default function AudioRecorderPage() {
           className={`relative max-w-2xl mx-auto w-full bg-slate-900/80 backdrop-blur-2xl border ${isRecorderHighlighted ? 'border-purple-500 shadow-[0_0_40px_rgba(168,85,247,0.4)]' : 'border-slate-700/60 shadow-2xl'} rounded-[2rem] p-8 md:p-12 transition-all duration-700`}
         >
           <div className="text-center mb-10 space-y-2">
-            <h2 className="text-3xl font-bold bg-white bg-clip-text text-transparent">Audio Pipeline Hub</h2>
+            <h2 className="text-3xl font-bold bg-white bg-clip-text text-transparent">VocalVault</h2>
             <p className="text-slate-400 text-sm">⏱️ Takes only 5 seconds. Secure and direct.</p>
           </div>
 

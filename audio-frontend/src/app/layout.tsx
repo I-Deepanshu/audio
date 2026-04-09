@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Voice Data Collection Platform",
+  title: "VocalVault",
   description: "Secure, enterprise-scale speech recording interface.",
 };
 
