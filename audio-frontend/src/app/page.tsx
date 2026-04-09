@@ -73,6 +73,7 @@ export default function AudioRecorderPage() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const waveLottieRef = useRef<any>(null);
 
   // --- TIMER LOGIC ---
   const formatTime = (totalSeconds: number) => {
@@ -422,7 +423,13 @@ export default function AudioRecorderPage() {
                   >
                     {isRecording && (
                       <div className="w-full max-w-[250px] h-24 mb-6 relative pointer-events-none">
-                        <Lottie animationData={voiceRecognitionAnimation} loop={true} style={{ width: '100%', height: '100%' }} />
+                        <Lottie 
+                          lottieRef={waveLottieRef}
+                          animationData={voiceRecognitionAnimation} 
+                          loop={true} 
+                          style={{ width: '100%', height: '100%' }} 
+                          onDOMLoaded={() => waveLottieRef.current?.setSpeed(0.5)}
+                        />
                       </div>
                     )}
                     {isRecording ? (
